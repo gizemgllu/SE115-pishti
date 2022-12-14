@@ -40,9 +40,11 @@ public class pistiGame {
         return deckOfCards[numbCards];
     }
     public Structure showCard(int numbCards) {
+
         return deckOfCards[numbCards];
     }
     public int cardsLeft(){
+
         return deckOfCards.length-cardsUsed;
     }
     public Structure dealingCards() {
@@ -51,6 +53,16 @@ public class pistiGame {
         }
         else{
             return null;
+        }
+        public void cut(){
+            Random r= new Random();
+            int cutPosition=r.nextInt(numbCards);
+            String[] newCards= new String[numbCards];
+            for(int i=0; i<numbCards;i++) {
+                newCards[i]=currentC[(cutPosition+i)%numbCards];
+            }
+
+
         }
     }
 
