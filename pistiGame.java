@@ -7,6 +7,7 @@ public class pistiGame {
     private static int currentC;
     private int cardsUsed;
     private static final Random rndNumbers = new Random();
+    private String[] cardsScore;
 
     public pistiGame() {
         cardsUsed=0;
@@ -59,7 +60,7 @@ public class pistiGame {
             int cutPosition=r.nextInt(numbCards);
             String[] newCards= new String[numbCards];
             for(int i=0; i<numbCards;i++) {
-                newCards[i]=currentC[(cutPosition+i)%numbCards];
+                newCards[i]=cardsScore[(cutPosition+i)%numbCards];
             }
 
 
