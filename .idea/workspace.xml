@@ -4,13 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a181fa78-c89d-4243-b5d0-a9ccdf0159b6" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/Structure.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/pistiGame.java" afterDir="false" />
+    <list default="true" id="a181fa78-c89d-4243-b5d0-a9ccdf0159b6" name="Changes" comment="added cut method">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Game.java" beforeDir="false" afterPath="$PROJECT_DIR$/Game.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pistiProject copy.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pistiProject.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Structure.java" beforeDir="false" afterPath="$PROJECT_DIR$/Structure.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -44,7 +40,7 @@
     &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;Project&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
     &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
     &quot;project.structure.side.proportion&quot;: &quot;0.0&quot;
   }
@@ -60,6 +56,14 @@
       <workItem from="1670515054937" duration="100000" />
       <workItem from="1670517410292" duration="27000" />
     </task>
+    <task id="LOCAL-00001" summary="added cut method">
+      <created>1671051887957</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1671051887957</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -72,5 +76,9 @@
         </entry>
       </map>
     </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="added cut method" />
+    <option name="LAST_COMMIT_MESSAGE" value="added cut method" />
   </component>
 </project>
