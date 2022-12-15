@@ -87,6 +87,7 @@ public class pistiGame {
         if (answer == 1) {
             System.out.println("pick number");
             int a = sc.nextInt();
+
             String[] deck2 = new String[52];
             String[] deck3 = new String[52];
             System.arraycopy(deck, 0, deck2, 0, a);
