@@ -6,7 +6,8 @@
   <component name="ChangeListManager">
     <list default="true" id="a181fa78-c89d-4243-b5d0-a9ccdf0159b6" name="Changes" comment="added cut method">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Structure.java" beforeDir="false" afterPath="$PROJECT_DIR$/Structure.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Game.java" beforeDir="false" afterPath="$PROJECT_DIR$/Game.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pistiGame.java" beforeDir="false" afterPath="$PROJECT_DIR$/pistiGame.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -63,7 +64,28 @@
       <option name="project" value="LOCAL" />
       <updated>1671051887957</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="added cut method">
+      <created>1671052295691</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1671052295691</updated>
+    </task>
+    <task id="LOCAL-00003" summary="added cut method">
+      <created>1671052365432</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1671052365432</updated>
+    </task>
+    <task id="LOCAL-00004" summary="added cut method">
+      <created>1671052405091</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1671052405092</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">

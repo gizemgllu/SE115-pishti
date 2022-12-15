@@ -96,6 +96,7 @@ public class pistiGame {
             Random r= new Random();
             int comp=r.nextInt(52);
             String[] deck2 = new String[52];
+
             String[] deck3 = new String[52];
             System.arraycopy(deck, 0, deck2, 0, comp);
             System.arraycopy(deck, 0, deck3, 52 - comp, 52);
