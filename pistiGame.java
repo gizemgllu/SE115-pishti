@@ -20,6 +20,7 @@ public class pistiGame {
         for (int i = 0; i < deckOfCards.length; i++) {
             deckOfCards[i] = new Structure(numbers[i % 13], letters[i / 13]);
 
+
         }
     }
 
