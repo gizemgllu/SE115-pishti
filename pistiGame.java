@@ -9,6 +9,8 @@ public class pistiGame {
     private static final Random rndNumbers = new Random();
     private String[] cardsScore;
     static String[] deckOfCards = new String[numbCards];
+    static int yourScore = 0;
+    static int computerScore = 0;
 
 
     public void shuffleDeck() {
@@ -36,10 +38,12 @@ public class pistiGame {
     }
 
     public void setDeckOfCards() {
+
         this.deckOfCards = deckOfCards;
     }
 
     public String[] getDeckOfCards() {
+
         return this.deckOfCards;
     }
 
@@ -92,6 +96,23 @@ public class pistiGame {
         } else {
             return null;
         }
+    }
+    public static void gameFinished() {
+        System.out.println("_________________________");
+        System.out.println("Game Finished");
+        System.out.println("Result: ");
+        System.out.println("Computer Score = " + computerScore);
+        System.out.println("Your Score = " + yourScore);
+
+        if (yourScore < computerScore)
+            System.out.println("Computer Wins!");
+        else if (computerScore < yourScore)
+            System.out.println("You Wins!");
+        else
+            System.out.println("Nobody won! Your score and computer score are equal :)");
+
+        System.out.println("Thanks for playing.");
+        System.out.println("-------------------------");
     }
 
 
