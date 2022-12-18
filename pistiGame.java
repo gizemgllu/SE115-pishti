@@ -9,6 +9,10 @@ public class pistiGame {
     private static final Random rndNumbers = new Random();
     private String[] cardsScore;
     static String[] deckOfCards = new String[numbCards];
+    private String[] userHand;
+    private String[] computerHand;
+
+
     static int yourScore = 0;
     static int computerScore = 0;
 
@@ -23,10 +27,10 @@ public class pistiGame {
         System.out.println("----------------");
 
         for (int i = 0; i < deckOfCards.length; i++) {
-            int index = (int) (Math.random() * deckOfCards.length);
+            int j = (int) (Math.random() * deckOfCards.length);
             String tmp = deckOfCards[i];
-            deckOfCards[i] = deckOfCards[index];
-            deckOfCards[index] = tmp;
+            deckOfCards[i] = deckOfCards[j];
+            deckOfCards[j] = tmp;
 
         }
         for (String u : deckOfCards) {
@@ -47,25 +51,69 @@ public class pistiGame {
         return this.deckOfCards;
     }
 
-    public String[] cutDeck(String[] deckOfCards, int cutPoint) {
-        String[] topHalf = new String[cutPoint];
-        String[] bottomHalf = new String[deckOfCards.length - cutPoint];
+    public void cut() {
+        Random rd = new Random();
+        int cutPoint = rd.nextInt(deckOfCards.length);
+        String top[] = new String[cutPoint];
+        String bottom[] = new String[deckOfCards.length - cutPoint];
+        System.arraycopy(deckOfCards, 0, top, 0, cutPoint);
+        System.arraycopy(deckOfCards, cutPoint, bottom, 0, deckOfCards.length - cutPoint);
+        String[] newArray = new String[top.length + bottom.length];
+        System.arraycopy(bottom, 0, newArray, 0, bottom.length);
+        System.arraycopy(top, 0, newArray, bottom.length, top.length);
 
-        // Cut the deckOfCards at the chosen point
-        for (int i = 0; i < cutPoint; i++) {
-            topHalf[i] = deckOfCards[i];
+
+        for (String card : top) {
+            System.out.println("-" + card);
         }
-        for (int i = cutPoint; i < deckOfCards.length; i++) {
-            bottomHalf[i - cutPoint] = deckOfCards[i];
+        for (String cards : bottom) {
+            System.out.println("+" +cards);
+        }
+        for (String cardd : newArray) {
+            System.out.println("!" +cardd);
         }
 
-        if (cutPoint < deckOfCards.length / 2) {
-            return topHalf;
-        } else {
-            return bottomHalf;
-        }
 
     }
+
+    public String[][] dealCards() {
+        int index=0;
+        String[][] hands = new String[2][4];
+        for (int i = 0; i < 4; i++) {
+            hands[0][i] = deckOfCards[index];
+            index++;
+            hands[1][i] = deckOfCards[index];
+            index++;
+        }
+        return hands;
+    }
+
+    public String[] dealBoard() {
+        int index=0;
+        String[] board = new String[4];
+        for (int i = 0; i < 4; i++) {
+            board[i] = deckOfCards[index];
+            index++;
+        }
+        return board;
+    }
+    public void playGame() {
+        cut(); // cut the deck before dealing the cards
+        String[][] hands = dealCards(); // deal 4 cards to each player
+        String[] board = dealBoard(); // deal 4 cards to the board
+
+        // display the last card on the board to the players
+        System.out.println("The last card on the board is: " + board[board.length - 1]);
+    }
+        // Print the user's hand
+        public void printUserHand() {
+            System.out.println("User's hand:");
+            for (int i = 0; i < 5; i++) {
+                System.out.println(userHand[i]);
+            }
+        }
+
+
 
     public int getNumbCards() {
 
@@ -90,13 +138,7 @@ public class pistiGame {
         return deckOfCards.length - cardsUsed;
     }
 
-    public String dealingCards() {
-        if (currentC < deckOfCards.length) {
-            return deckOfCards[cardsUsed++];
-        } else {
-            return null;
-        }
-    }
+
     public static void gameFinished() {
         System.out.println("_________________________");
         System.out.println("Game Finished");
