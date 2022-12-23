@@ -1,28 +1,39 @@
+import java.util.Arrays;
 import java.util.Random;
 
 public class pistiGame {
     private final String[] suits = {"hearts", "diamonds", "spades", "clubs"};
     private static final String[] ranks = {"A", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "K", "Q"};
     private static final int numbCards = 52;
-    private static int currentC;
     private static int cardsUsed;
     private static final Random rndNumbers = new Random();
     private String[] cardsScore;
-    static String[] deckOfCards = new String[numbCards];
-    private String[] userHand;
-    private String[] computerHand;
+    private int[] scores;
+    private static String[] deckOfCards = new String[numbCards];
+    private Structure[] userHand;
+    private Structure[] computerHand;
+    private Structure[] board;
+    private int boardSize;
+    private int userHandSize;
+    private int computerHandSize;
 
 
     static int yourScore = 0;
     static int computerScore = 0;
+    private int index;
+
 
 
     public void shuffleDeck() {
 
         for (int i = 0; i < numbCards; i++) {
+            int index = 0;
             deckOfCards[i] = ranks[i % 13] + " of " + suits[i / 13];
             System.out.println(deckOfCards[i]);
+            deckOfCards[index] = Arrays.toString(getDeckOfCards(suits, ranks));
+            index++;
         }
+        this.index=0;
 
         System.out.println("----------------");
 
@@ -46,9 +57,23 @@ public class pistiGame {
         this.deckOfCards = deckOfCards;
     }
 
-    public String[] getDeckOfCards() {
+    public void setBoard() {
+        this.board=board;
+    }
+
+    public String[] getDeckOfCards(String[] suits, String[] ranks) {
 
         return this.deckOfCards;
+    }
+    public void Card() {
+        // Initialize the instance variables
+        board = new Structure[52];
+        userHand = new Structure[52];
+        computerHand = new Structure[52];
+        scores = new int[2];
+        boardSize = 0;
+        userHandSize = 0;
+        computerHandSize=0;
     }
 
     public void cut() {
@@ -73,19 +98,18 @@ public class pistiGame {
             System.out.println("!" +cardd);
         }
 
-
     }
 
     public String[][] dealCards() {
         int index=0;
-        String[][] hands = new String[2][4];
+        String[][] userHand = new String[2][4];
         for (int i = 0; i < 4; i++) {
-            hands[0][i] = deckOfCards[index];
+            userHand[0][i] = deckOfCards[index];
             index++;
-            hands[1][i] = deckOfCards[index];
+            userHand[1][i] = deckOfCards[index];
             index++;
         }
-        return hands;
+        return userHand;
     }
 
     public String[] dealBoard() {
@@ -97,39 +121,36 @@ public class pistiGame {
         }
         return board;
     }
+
+
     public void playGame() {
+
         cut(); // cut the deck before dealing the cards
+
         String[][] hands = dealCards(); // deal 4 cards to each player
         String[] board = dealBoard(); // deal 4 cards to the board
+        printUserHand();
 
         // display the last card on the board to the players
         System.out.println("The last card on the board is: " + board[board.length - 1]);
     }
         // Print the user's hand
-        public void printUserHand() {
-            System.out.println("User's hand:");
-            for (int i = 0; i < 5; i++) {
-                System.out.println(userHand[i]);
-            }
+
+    public void printUserHand() {
+        System.out.println("Your hand: ");
+        for (Structure card : this.userHand) {
+            System.out.println(card);
         }
-
-
-
-    public int getNumbCards() {
-
-        return this.numbCards;
     }
+
+
+
 
 
     public String giveCard(int numbCards) {
         numbCards--;
         cardsUsed++;
         System.out.println("Number of cards left: " + cardsLeft());
-        return deckOfCards[numbCards];
-    }
-
-    public String showCard(int numbCards) {
-
         return deckOfCards[numbCards];
     }
 
