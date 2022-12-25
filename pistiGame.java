@@ -176,16 +176,14 @@ public class pistiGame {
         computerHandSize--;
     }
 
+   // public void playCard() {   will be added  }
 
 
 
 
 
 
-
-
-
-    // Print the user's hand
+        // Print the user's hand
     public void printUserHand() {
         System.out.println("Your hand: ");
         for (int i = 0; i < userHand.length; i++) {
@@ -193,10 +191,6 @@ public class pistiGame {
                 System.out.println(i + ": " + userHand[i]);
         }
 
-        System.out.println("Your hand: ");
-        for (Structure card : this.userHand) {
-            System.out.println(card);
-        }
     }
 
 
@@ -212,7 +206,7 @@ public class pistiGame {
         else if (computerScore < userScore)
             System.out.println("You Wins!");
         else
-            System.out.println("Nobody won! Your score and computer score are equal :)");
+            System.out.println("Nobody won! Your score and computer score are equal.");
 
         System.out.println("Thanks for playing.");
         System.out.println("-------------------------");
