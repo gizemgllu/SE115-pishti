@@ -176,14 +176,83 @@ public class pistiGame {
         computerHandSize--;
     }
 
-   // public void playCard() {   will be added  }
+    public void playCard(Structure played, boolean isUser) {
+        if (played.getRanks().equals("J")) {
+            // Take all cards on the board
+            for (int i = 0; i < boardSize; i++) {
+                if (isUser) {
+                    userTaken[userTakenSize + i] = board[i];
+                } else {
+                    computerTaken[computerTakenSize + i] = board[i];
+                }
+            }
+            // Add played card to the player's taken pile
+            if (isUser) {
+                userTaken[userTakenSize + boardSize] = played;
+                userTakenSize += boardSize + 1;
+            } else {
+                computerTaken[computerTakenSize + boardSize] = played;
+                computerTakenSize += boardSize + 1;
+            }
+            // Clear the board
+            for (int i = 0; i < boardSize; i++) {
+                board[i] = null;
+            }
+            boardSize = 0;
+        } else if (boardSize == 0) {
+            // Add played card to the board if it is empty
+            board[boardSize] = played;
+            boardSize++;
+        } else if (played.getRanks().equals(board[boardSize - 1].getRanks())) {
+            if (boardSize == 1) {
+                // pisti
+                if (isUser) {
+                    userTaken[userTakenSize] = board[0];
+                    userTaken[userTakenSize + 1] = played;
+                    userTakenSize += 2;
+                    userScore += 10;
+                } else {
+                    computerTaken[computerTakenSize] = board[0];
+                    computerTaken[computerTakenSize + 1] = played;
+                    computerTakenSize += 2;
+                    computerScore += 10;
+                }
+                board[0] = null;
+                boardSize = 0;
+            } else {
+                // Take all cards on the board
+                for (int i = 0; i < boardSize; i++) {
+                    if (isUser) {
+                        userTaken[userTakenSize + i] = board[i];
+                    } else {
+                        computerTaken[computerTakenSize + i] = board[i];
+                    }
+                }
+                // Add played card to the player's taken pile
+                if (isUser) {
+                    userTaken[userTakenSize + boardSize] = played;
+                    userTakenSize += boardSize + 1;
+                } else {
+                    computerTaken[computerTakenSize + boardSize] = played;
+                    computerTakenSize += boardSize + 1;
+                }
+                // Clear the board
+                for (int i = 0; i < boardSize; i++) {
+                    board[i] = null;
+                }
+                boardSize = 0;
+            }
+        } else {
+            // Add played card to the board if its rank does not match the top card
+            board[boardSize] = played;
+            boardSize++;
+        }
+    }
 
 
 
 
-
-
-        // Print the user's hand
+    // Print the user's hand
     public void printUserHand() {
         System.out.println("Your hand: ");
         for (int i = 0; i < userHand.length; i++) {
@@ -327,7 +396,7 @@ public class pistiGame {
 
 
 
-}
+
 
 
 
