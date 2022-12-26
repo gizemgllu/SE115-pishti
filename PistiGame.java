@@ -1,8 +1,7 @@
 
-import java.util.Random;
 import java.util.Scanner;
 
-public class pistiGame {
+public class PistiGame {
     private final String[] suits = {"♥", "♦", "♠", "♣" };
     private static final String[] ranks = {"A", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "K", "Q"};
     private static final int numbCards = 52;
@@ -23,7 +22,7 @@ public class pistiGame {
     private boolean userTake;
 
 
-    public pistiGame() {
+    public PistiGame() {
         deckOfCards = new Structure[numbCards];
         board = new Structure[numbCards];
         userHand = new Structure[4];
@@ -176,17 +175,19 @@ public class pistiGame {
         computerHandSize--;
     }
 
+
     public void playCard(Structure played, boolean isUser) {
         if (played.getRanks().equals("J")) {
-            // Take all cards on the board
             for (int i = 0; i < boardSize; i++) {
                 if (isUser) {
                     userTaken[userTakenSize + i] = board[i];
+                    userTake = true;
                 } else {
                     computerTaken[computerTakenSize + i] = board[i];
+                    userTake = false;
                 }
+                board[i] = null;
             }
-            // Add played card to the player's taken pile
             if (isUser) {
                 userTaken[userTakenSize + boardSize] = played;
                 userTakenSize += boardSize + 1;
@@ -194,13 +195,8 @@ public class pistiGame {
                 computerTaken[computerTakenSize + boardSize] = played;
                 computerTakenSize += boardSize + 1;
             }
-            // Clear the board
-            for (int i = 0; i < boardSize; i++) {
-                board[i] = null;
-            }
             boardSize = 0;
         } else if (boardSize == 0) {
-            // Add played card to the board if it is empty
             board[boardSize] = played;
             boardSize++;
         } else if (played.getRanks().equals(board[boardSize - 1].getRanks())) {
@@ -211,24 +207,27 @@ public class pistiGame {
                     userTaken[userTakenSize + 1] = played;
                     userTakenSize += 2;
                     userScore += 10;
+                    userTake = true;
                 } else {
                     computerTaken[computerTakenSize] = board[0];
                     computerTaken[computerTakenSize + 1] = played;
                     computerTakenSize += 2;
                     computerScore += 10;
+                    userTake = false;
                 }
                 board[0] = null;
                 boardSize = 0;
             } else {
-                // Take all cards on the board
                 for (int i = 0; i < boardSize; i++) {
                     if (isUser) {
                         userTaken[userTakenSize + i] = board[i];
+                        userTake = true;
                     } else {
                         computerTaken[computerTakenSize + i] = board[i];
+                        userTake = false;
                     }
+                    board[i] = null;
                 }
-                // Add played card to the player's taken pile
                 if (isUser) {
                     userTaken[userTakenSize + boardSize] = played;
                     userTakenSize += boardSize + 1;
@@ -236,14 +235,9 @@ public class pistiGame {
                     computerTaken[computerTakenSize + boardSize] = played;
                     computerTakenSize += boardSize + 1;
                 }
-                // Clear the board
-                for (int i = 0; i < boardSize; i++) {
-                    board[i] = null;
-                }
                 boardSize = 0;
             }
         } else {
-            // Add played card to the board if its rank does not match the top card
             board[boardSize] = played;
             boardSize++;
         }
@@ -264,6 +258,7 @@ public class pistiGame {
 
 
     public static void gameFinished() {
+
         System.out.println("_________________________");
         System.out.println("Game Finished");
         System.out.println("Result: ");
