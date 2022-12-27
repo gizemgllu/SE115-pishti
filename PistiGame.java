@@ -210,7 +210,7 @@ public class PistiGame {
                     userTake = true;
                 } else {
                     computerTaken[computerTakenSize] = board[0];
-                    computerTaken[computerTakenSize + 1] = played;
+                    computerTaken[computerTakenSize] = played;
                     computerTakenSize += 2;
                     computerScore += 10;
                     userTake = false;
@@ -218,7 +218,7 @@ public class PistiGame {
                 board[0] = null;
                 boardSize = 0;
             } else {
-                for (int i = 0; i < boardSize; i++) {
+                for (int i = 0; i < boardSize-1; i++) {
                     if (isUser) {
                         userTaken[userTakenSize + i] = board[i];
                         userTake = true;
@@ -230,7 +230,7 @@ public class PistiGame {
                 }
                 if (isUser) {
                     userTaken[userTakenSize + boardSize] = played;
-                    userTakenSize += boardSize + 1;
+                    userTakenSize += boardSize ;
                 } else {
                     computerTaken[computerTakenSize + boardSize] = played;
                     computerTakenSize += boardSize + 1;
