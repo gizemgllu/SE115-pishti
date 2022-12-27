@@ -1,53 +1,85 @@
+
+
+import java.io.FileInputStream;
+import java.io.IOException;
 import java.util.Scanner;
-import java.util.Random;
+
 public class Game {
     public static void main(String[] args) {
-
-        System.out.println("Welcome the Turkish Pishti Game!:)");
-        pistiGame pistiGame1= new pistiGame();
-        pistiGame1.shuffleDeck();
-
         Scanner sc = new Scanner(System.in);
 
-        String[] deck = new String[pistiGame1.getNumbCards()];
-
-        System.out.println("Do you want to pick a number (1) or have the computer pick a number (2)?");
-        int choice = sc.nextInt();
-
-        // Pick a number
-        int cutPoint;
-        if (choice == 1) {
-            System.out.println("Enter a number between 0 and 51:");
-            cutPoint = sc.nextInt();
-        } else {
-            Random rand = new Random();
-            cutPoint = rand.nextInt(pistiGame1.getNumbCards());
+        String[] highscores = new String[10];
+        for (int i = 0; i < 10; i++) {
+            highscores[i] = null;
         }
 
-        // Cut the deck at the chosen point
-        String[] topHalf = cutDeck(deck, cutPoint);
-        String[] bottomHalf = cutDeck(deck, pistiGame1.getNumbCards() - cutPoint);
+        try {
+            FileInputStream fis = new FileInputStream("highscore.txt");
+            int i = 0;
+            int c;
+            String line = "";
+            while ((c = fis.read()) != -1) {
+                if (c == '\n') {
+                    highscores[i] = line;
+                    line = "";
+                    i++;
+                } else {
+                    line += (char) c;
+                }
+            }
+            fis.close();
+        } catch (IOException e) {
 
-        // Print the top and bottom halves of the deck
-        System.out.println("Top half of the deck:");
-        for (String card : topHalf) {
-            System.out.println(card);
         }
-        System.out.println("Bottom half of the deck:");
-        for (String card : bottomHalf) {
-            System.out.println(card);
-        }
-    }
 
-    public static String[] cutDeck(String[] deck, int cutPoint) {
-        String[] half = new String[cutPoint];
-        for (int i = 0; i < cutPoint; i++) {
-            half[i] = deck[i];
+        System.out.println("Welcome the Turkish Pishti Game!:)");
+        PistiGame pistiGame1 = new PistiGame();
+        pistiGame1.playGame();
+        int userScore = pistiGame1.getUserScore();
+        boolean write = false;
+        for (int i = 0; i < 10; i++) {
+            if (highscores[i] == null) {
+                write = true;
+            }
         }
-        return half;
+        if (write == false) {
+            for (int i = 0; i < 10; i++) {
+                int score = Integer.parseInt(highscores[i].split(":")[1]);
+                if (score < userScore) {
+                    write = true;
+                }
+            }
+        }
+        if (write) {
+            System.out.println("Congratulations, you entered the high score list, please write your name:");
+            String name = sc.nextLine();
+            highscores[9] = name + ":" + userScore;
+            for (int i = 0; i < 10; i++) {
+                for (int j = 0; j < 9; j++) {
+                    if (highscores[j] == null) {
+                        String tmp = highscores[j + 1];
+                        highscores[j + 1] = highscores[j];
+                        highscores[j] = tmp;
+                    } else {
+                        int jScore = Integer.parseInt(highscores[j].split(":")[1]);
+                        if (highscores[j + 1] != null) {
+                            int nextScore = Integer.parseInt(highscores[j + 1].split(":")[1]);
+                            if (jScore < nextScore) {
+                                String tmp = highscores[j + 1];
+                                highscores[j + 1] = highscores[j];
+                                highscores[j] = tmp;
+                            }
+                        }
+                    }
+                }
+            }
+            System.out.println("HIGH SCORES");
+            for (int i = 0; i < 10; i++) {
+                if (highscores[i] != null) {
+                    System.out.println(highscores[i]);
+                }
+            }
+        }
+
     }
 }
-
-
-
-
