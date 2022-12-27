@@ -175,219 +175,174 @@ public class PistiGame {
         computerHandSize--;
     }
 
-
     public void playCard(Structure played, boolean isUser) {
+        // Determine which player's taken cards and score to update
+        Structure[] taken;
+        int takenSize;
+        int score;
+        if (isUser) {
+            taken = userTaken;
+            takenSize = userTakenSize;
+            score = userScore;
+        } else {
+            taken = computerTaken;
+            takenSize = computerTakenSize;
+            score = computerScore;
+        }
+
         if (played.getRanks().equals("J")) {
+            // Jack played, take all cards on board
             for (int i = 0; i < boardSize; i++) {
-                if (isUser) {
-                    userTaken[userTakenSize + i] = board[i];
-                    userTake = true;
-                } else {
-                    computerTaken[computerTakenSize + i] = board[i];
-                    userTake = false;
-                }
+                taken[takenSize + i] = board[i];
                 board[i] = null;
             }
-            if (isUser) {
-                userTaken[userTakenSize + boardSize] = played;
-                userTakenSize += boardSize + 1;
-            } else {
-                computerTaken[computerTakenSize + boardSize] = played;
-                computerTakenSize += boardSize + 1;
-            }
+            taken[takenSize + boardSize] = played;
+            takenSize += boardSize + 1;
             boardSize = 0;
-        } else if (boardSize == 0) {
-            board[boardSize] = played;
-            boardSize++;
-        } else if (played.getRanks().equals(board[boardSize - 1].getRanks())) {
+        } else if (boardSize == 0 || played.getRanks().equals(board[boardSize - 1].getRanks())) {
+            // No cards on board or card played matches rank of top card on board
             if (boardSize == 1) {
                 // pisti
-                if (isUser) {
-                    userTaken[userTakenSize] = board[0];
-                    userTaken[userTakenSize + 1] = played;
-                    userTakenSize += 2;
-                    userScore += 10;
-                    userTake = true;
-                } else {
-                    computerTaken[computerTakenSize] = board[0];
-                    computerTaken[computerTakenSize] = played;
-                    computerTakenSize += 2;
-                    computerScore += 10;
-                    userTake = false;
-                }
+                taken[takenSize] = board[0];
+                taken[takenSize + 1] = played;
+                takenSize += 2;
+                score += 10;
                 board[0] = null;
                 boardSize = 0;
             } else {
-                for (int i = 0; i < boardSize-1; i++) {
-                    if (isUser) {
-                        userTaken[userTakenSize + i] = board[i];
-                        userTake = true;
-                    } else {
-                        computerTaken[computerTakenSize + i] = board[i];
-                        userTake = false;
-                    }
+                // take all cards on board
+                for (int i = 0; i < boardSize; i++) {
+                    taken[takenSize + i] = board[i];
                     board[i] = null;
                 }
-                if (isUser) {
-                    userTaken[userTakenSize + boardSize] = played;
-                    userTakenSize += boardSize ;
-                } else {
-                    computerTaken[computerTakenSize + boardSize] = played;
-                    computerTakenSize += boardSize + 1;
-                }
+                taken[takenSize + boardSize] = played;
+                takenSize += boardSize + 1;
                 boardSize = 0;
             }
         } else {
+            // Card played does not match rank of top card on board, add it to board
             board[boardSize] = played;
             boardSize++;
         }
     }
 
 
-
-
     // Print the user's hand
-    public void printUserHand() {
-        System.out.println("Your hand: ");
-        for (int i = 0; i < userHand.length; i++) {
-            if (userHand[i] != null)
-                System.out.println(i + ": " + userHand[i]);
-        }
+                public void printUserHand () {
+                    System.out.println("Your hand: ");
+                    for (int i = 0; i < userHand.length; i++) {
+                        if (userHand[i] != null)
+                            System.out.println(i + ": " + userHand[i]);
+                    }
 
-    }
+                }
 
 
-    public static void gameFinished() {
+                public static void gameFinished () {
 
-        System.out.println("_________________________");
-        System.out.println("Game Finished");
-        System.out.println("Result: ");
-        System.out.println("Computer Score = " + computerScore);
-        System.out.println("Your Score = " + userScore);
 
-        if (userScore < computerScore)
-            System.out.println("Computer Wins!");
-        else if (computerScore < userScore)
-            System.out.println("You Wins!");
-        else
-            System.out.println("Nobody won! Your score and computer score are equal.");
+                    System.out.println("_________________________");
+                    System.out.println("Game Finished");
+                    System.out.println("Result: ");
+                    System.out.println("Computer Score = " + computerScore);
+                    System.out.println("Your Score = " + userScore);
 
-        System.out.println("Thanks for playing.");
-        System.out.println("-------------------------");
-    }
-    public int getCardsUsed() {
-        return cardsUsed;
-    }
+                    if (userScore < computerScore)
+                        System.out.println("Computer Wins!");
+                    else if (computerScore < userScore)
+                        System.out.println("You Wins!");
+                    else
+                        System.out.println("Nobody won! Your score and computer score are equal.");
 
-    public void setCardsUsed(int cardsUsed) {
-        this.cardsUsed = cardsUsed;
-    }
+                    System.out.println("Thanks for playing.");
+                    System.out.println("-------------------------");
+                }
 
-    public Structure[] getDeckOfCards() {
-        return deckOfCards;
-    }
+                public int getCardsUsed () {return cardsUsed;
+                }
 
-    public void setDeckOfCards(Structure[] deckOfCards) {
-        this.deckOfCards = deckOfCards;
-    }
+                public void setCardsUsed ( int cardsUsed){this.cardsUsed = cardsUsed;
+                }
 
-    public Structure[] getUserHand() {
-        return userHand;
-    }
+                public Structure[] getDeckOfCards () {return deckOfCards;
+                }
 
-    public void setUserHand(Structure[] userHand) {
-        this.userHand = userHand;
-    }
+                public void setDeckOfCards (Structure[]deckOfCards){this.deckOfCards = deckOfCards;
+                }
 
-    public Structure[] getComputerHand() {
-        return computerHand;
-    }
+                public Structure[] getUserHand () {return userHand;
+                }
 
-    public void setComputerHand(Structure[] computerHand) {
-        this.computerHand = computerHand;
-    }
+                public void setUserHand (Structure[]userHand){this.userHand = userHand;
+                }
 
-    public Structure[] getBoard() {
-        return board;
-    }
+                public Structure[] getComputerHand () {return computerHand;
+                }
 
-    public void setBoard(Structure[] board) {
-        this.board = board;
-    }
+                public void setComputerHand (Structure[]computerHand){this.computerHand = computerHand;
+                }
 
-    public Structure[] getUserTaken() {
-        return userTaken;
-    }
+                public Structure[] getBoard () {return board;
+                }
 
-    public void setUserTaken(Structure[] userTaken) {
-        this.userTaken = userTaken;
-    }
+                public void setBoard (Structure[]board){this.board = board;
+                }
 
-    public Structure[] getComputerTaken() {
-        return computerTaken;
-    }
+                public Structure[] getUserTaken () {return userTaken;
+                }
 
-    public void setComputerTaken(Structure[] computerTaken) {
-        this.computerTaken = computerTaken;
-    }
+                public void setUserTaken (Structure[]userTaken){this.userTaken = userTaken;
+                }
 
-    public int getUserTakenSize() {
-        return userTakenSize;
-    }
+                public Structure[] getComputerTaken () {return computerTaken;
+                }
 
-    public void setUserTakenSize(int userTakenSize) {
-        this.userTakenSize = userTakenSize;
-    }
+                public void setComputerTaken (Structure[]computerTaken){this.computerTaken = computerTaken;
+                }
 
-    public int getComputerTakenSize() {
-        return computerTakenSize;
-    }
+                public int getUserTakenSize () {return userTakenSize;
+                }
 
-    public void setComputerTakenSize(int computerTakenSize) {
-        this.computerTakenSize = computerTakenSize;
-    }
+                public void setUserTakenSize ( int userTakenSize){this.userTakenSize = userTakenSize;
+                }
 
-    public int getBoardSize() {
-        return boardSize;
-    }
+                public int getComputerTakenSize () {return computerTakenSize;
+                }
 
-    public void setBoardSize(int boardSize) {
-        this.boardSize = boardSize;
-    }
+                public void setComputerTakenSize ( int computerTakenSize){this.computerTakenSize = computerTakenSize;
+                }
 
-    public int getUserHandSize() {
-        return userHandSize;
-    }
+                public int getBoardSize () {return boardSize;
+                }
 
-    public void setUserHandSize(int userHandSize) {
-        this.userHandSize = userHandSize;
-    }
+                public void setBoardSize ( int boardSize){this.boardSize = boardSize;
+                }
 
-    public int getComputerHandSize() {
-        return computerHandSize;
-    }
+                public int getUserHandSize () {return userHandSize;
+                }
 
-    public void setComputerHandSize(int computerHandSize) {
-        this.computerHandSize = computerHandSize;
-    }
+                public void setUserHandSize ( int userHandSize){this.userHandSize = userHandSize;
+                }
 
-    public int getUserScore() {
-        return userScore;
-    }
+                public int getComputerHandSize () {return computerHandSize;
+                }
 
-    public void setUserScore(int userScore) {
-        this.userScore = userScore;
-    }
+                public void setComputerHandSize ( int computerHandSize){this.computerHandSize = computerHandSize;
+                }
 
-    public int getComputerScore() {
-        return computerScore;
-    }
+                public int getUserScore () {return userScore;
+                }
 
-    public void setComputerScore(int computerScore) {
-        this.computerScore = computerScore;
-    }
+                public void setUserScore ( int userScore){this.userScore = userScore;
+                }
 
-}
+                public int getComputerScore () {return computerScore;
+                }
+
+                public void setComputerScore ( int computerScore){this.computerScore = computerScore;
+                }
+
+            }
 
 
 
