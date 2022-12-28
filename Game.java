@@ -1,6 +1,9 @@
 
 
-import java.io.FileInputStream;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Scanner;
 
@@ -14,20 +17,14 @@ public class Game {
         }
 
         try {
-            FileInputStream fis = new FileInputStream("highscore.txt");
+            BufferedReader br = new BufferedReader(new FileReader("highscore.txt"));
+            String line;
             int i = 0;
-            int c;
-            String line = "";
-            while ((c = fis.read()) != -1) {
-                if (c == '\n') {
-                    highscores[i] = line;
-                    line = "";
-                    i++;
-                } else {
-                    line += (char) c;
-                }
+            while ((line = br.readLine()) != null) {
+                highscores[i] = line;
+                i++;
             }
-            fis.close();
+            br.close();
         } catch (IOException e) {
 
         }
@@ -79,7 +76,17 @@ public class Game {
                     System.out.println(highscores[i]);
                 }
             }
-        }
+            try {
+                BufferedWriter br = new BufferedWriter(new FileWriter("highscore.txt"));
+                for (int i = 0; i < 10; i++) {
+                    if (highscores[i] != null) {
+                        br.write(highscores[i] + "\n");
+                    }
+                }
+                br.close();
+            } catch (IOException e) {
 
+            }
+        }
     }
 }
