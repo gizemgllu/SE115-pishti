@@ -9,17 +9,17 @@ public class PistiGame {
     private Structure[] deckOfCards;
     private Structure[] userHand;
     private Structure[] computerHand;
-    private Structure[] board;
-    private Structure[] userTaken;
-    private Structure[] computerTaken;
-    private int userTakenSize;
-    private int computerTakenSize;
-    private int boardSize;
+    private static Structure[] board;
+    private static Structure[] userTaken;
+    private static Structure[] computerTaken;
+    private static int userTakenSize;
+    private static int computerTakenSize;
+    private static int boardSize;
     private int userHandSize;
     private int computerHandSize;
     private static int userScore;
     private static int computerScore;
-    private boolean userTake;
+    private static boolean userTake;
 
 
     public PistiGame() {
@@ -176,51 +176,67 @@ public class PistiGame {
     }
 
     public void playCard(Structure played, boolean isUser) {
-        // Determine which player's taken cards and score to update
-        Structure[] taken;
-        int takenSize;
-        int score;
-        if (isUser) {
-            taken = userTaken;
-            takenSize = userTakenSize;
-            score = userScore;
-        } else {
-            taken = computerTaken;
-            takenSize = computerTakenSize;
-            score = computerScore;
-        }
-
         if (played.getRanks().equals("J")) {
-            // Jack played, take all cards on board
             for (int i = 0; i < boardSize; i++) {
-                taken[takenSize + i] = board[i];
+                if (isUser) {
+                    userTaken[userTakenSize + i] = board[i];
+                    userTake = true;
+                } else {
+                    computerTaken[computerTakenSize + i] = board[i];
+                    userTake = false;
+                }
                 board[i] = null;
             }
-            taken[takenSize + boardSize] = played;
-            takenSize += boardSize + 1;
+            if (isUser) {
+                userTaken[userTakenSize + boardSize] = played;
+                userTakenSize += boardSize + 1;
+            } else {
+                computerTaken[computerTakenSize + boardSize] = played;
+                computerTakenSize += boardSize + 1;
+            }
             boardSize = 0;
-        } else if (boardSize == 0 || played.getRanks().equals(board[boardSize - 1].getRanks())) {
-            // No cards on board or card played matches rank of top card on board
+        } else if (boardSize == 0) {
+            board[boardSize] = played;
+            boardSize++;
+        } else if (played.getRanks().equals(board[boardSize - 1].getRanks())) {
             if (boardSize == 1) {
                 // pisti
-                taken[takenSize] = board[0];
-                taken[takenSize + 1] = played;
-                takenSize += 2;
-                score += 10;
+                if (isUser) {
+                    userTaken[userTakenSize] = board[0];
+                    userTaken[userTakenSize + 1] = played;
+                    userTakenSize += 2;
+                    userScore += 10;
+                    userTake = true;
+                } else {
+                    computerTaken[computerTakenSize] = board[0];
+                    computerTaken[computerTakenSize + 1] = played;
+                    computerTakenSize += 2;
+                    computerScore += 10;
+                    userTake = false;
+                }
                 board[0] = null;
                 boardSize = 0;
             } else {
-                // take all cards on board
                 for (int i = 0; i < boardSize; i++) {
-                    taken[takenSize + i] = board[i];
+                    if (isUser) {
+                        userTaken[userTakenSize + i] = board[i];
+                        userTake = true;
+                    } else {
+                        computerTaken[computerTakenSize + i] = board[i];
+                        userTake = false;
+                    }
                     board[i] = null;
                 }
-                taken[takenSize + boardSize] = played;
-                takenSize += boardSize + 1;
+                if (isUser) {
+                    userTaken[userTakenSize + boardSize] = played;
+                    userTakenSize += boardSize + 1;
+                } else {
+                    computerTaken[computerTakenSize + boardSize] = played;
+                    computerTakenSize += boardSize + 1;
+                }
                 boardSize = 0;
             }
         } else {
-            // Card played does not match rank of top card on board, add it to board
             board[boardSize] = played;
             boardSize++;
         }
@@ -239,12 +255,34 @@ public class PistiGame {
 
 
                 public static void gameFinished () {
-
+                    if (boardSize > 0) {
+                        for (int i = 0; i < boardSize; i++) {
+                            if (userTake) {
+                                userTaken[userTakenSize + i] = board[i];
+                            } else {
+                                computerTaken[computerTakenSize + i] = board[i];
+                            }
+                            board[i] = null;
+                        }
+                        if (userTake) {
+                            userTakenSize += boardSize;
+                        } else {
+                            computerTakenSize += boardSize;
+                        }
+                        boardSize = 0;
+                    }
+                    if (computerTakenSize > userTakenSize) {
+                        computerScore += 3;
+                    } else if (userTakenSize > computerTakenSize) {
+                        userScore += 3;
+                    }
+                    for (int i = 0; i < userTakenSize; i++) {
+                        userScore += userTaken[i].getCardsScore();
+                    }
 
                     System.out.println("_________________________");
                     System.out.println("Game Finished");
                     System.out.println("Result: ");
-                    System.out.println("Computer Score = " + computerScore);
                     System.out.println("Your Score = " + userScore);
 
                     if (userScore < computerScore)
