@@ -1,6 +1,6 @@
 
+import java.util.InputMismatchException;
 import java.util.Scanner;
-
 public class PistiGame {
     private final String[] suits = {"♥", "♦", "♠", "♣" };
     private static final String[] ranks = {"A", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "K", "Q"};
@@ -41,8 +41,6 @@ public class PistiGame {
         createDeck();
     }
 
-
-
     public void createDeck() {
         for (int i = 0; i < numbCards; i++) {
             deckOfCards[i] = new Structure(ranks[i % 13], suits[i / 13]);
@@ -57,13 +55,9 @@ public class PistiGame {
             deckOfCards[j] = tmp;
         }
     }
-
-
     public void setBoard() {
         this.board=board;
     }
-
-
 
     public void cut() {
         int cutPoint = (int) (Math.random() * numbCards);
@@ -130,15 +124,27 @@ public class PistiGame {
     public void userCardPlay() {
         Scanner sc = new Scanner(System.in);
         System.out.println("Select a card index to play:");
-        int selectedCard = sc.nextInt();
+        int selectedCard = -1;
+        while (selectedCard < 0 || selectedCard >= userHandSize) {
+            try {
+                selectedCard = sc.nextInt();
+                if (selectedCard < 0 || selectedCard >= userHandSize) {
+                    System.out.println("Invalid card index. Please enter a valid index:");
+                }
+            } catch (InputMismatchException e) {
+                System.out.println("Invalid input. Please enter a valid card index:");
+                sc.nextLine();
+            }
+        }
         System.out.println("You played " + userHand[selectedCard]);
-        playCard(userHand[selectedCard], true);  // ı will create playCard func to play all game
+        playCard(userHand[selectedCard], true);
         for (int i = selectedCard; i < userHandSize - 1; i++) {
             userHand[i] = userHand[i + 1];
         }
         userHand[userHandSize - 1] = null;
         userHandSize--;
     }
+
 
     public void computerCardPlay() {
         boolean played = false;
@@ -241,9 +247,6 @@ public class PistiGame {
             boardSize++;
         }
     }
-
-
-    // Print the user's hand
                 public void printUserHand () {
                     System.out.println("Your hand: ");
                     for (int i = 0; i < userHand.length; i++) {
@@ -252,8 +255,6 @@ public class PistiGame {
                     }
 
                 }
-
-
                 public static void gameFinished () {
                     if (boardSize > 0) {
                         for (int i = 0; i < boardSize; i++) {
@@ -379,7 +380,6 @@ public class PistiGame {
 
                 public void setComputerScore ( int computerScore){this.computerScore = computerScore;
                 }
-
             }
 
 
