@@ -3,48 +3,37 @@ public class Structure {
     private String suits;
     private int cardsScore;
 
-
     public Structure(String ranks, String suits) {
         this.ranks = ranks;
-        this.suits =suits;
+        this.suits = suits;
 
-        if(ranks.equals("J")){
-            this.cardsScore=1;
-        }
-        else if(ranks.equals("A")){
-            this.cardsScore=1;
-        }
-        else if(ranks.equals("2")&&suits.equals("♣")) {
+        if (ranks.equals("2") && suits.equals("♣")) {
             this.cardsScore = 2;
-        }
-        else if(ranks.equals("10")&&suits.equals("♥")) {
+        } else if (ranks.equals("10") && suits.equals("♥")) {
             this.cardsScore = 3;
+        } else {
+            this.cardsScore = 1;
         }
-        else{
-            this.cardsScore=0;
-        }
-
     }
+
     public Structure(int cardsScore) {
-        this.cardsScore=cardsScore;
+        this.cardsScore = cardsScore;
     }
-    public String getRanks() {
 
+    public String getRanks() {
         return this.ranks;
     }
-    public String getSuits() {
 
+    public String getSuits() {
         return this.suits;
     }
-    public int getCardsScore() {
 
+    public int getCardsScore() {
         return this.cardsScore;
     }
 
-
     public String toString() {
-
-        return suits+ranks;
+        return suits + ranks;
     }
 
 }
