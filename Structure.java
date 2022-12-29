@@ -15,7 +15,6 @@ public class Structure {
             this.cardsScore = 1;
         }
     }
-
     public Structure(int cardsScore) {
         this.cardsScore = cardsScore;
     }
